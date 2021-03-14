@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+<head>
+    <meta http-equiv="Content-Type" content="text/php; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>Skills required for any job</title>
+    <link rel="apple-touch-icon" href="app-assets/images/favicon/apple-touch-icon-152x152.png">
+    <link rel="shortcut icon" type="image/x-icon" href="app-assets/images/favicon/favicon-32x32.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/css/themes/horizontal-menu-template/materialize.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/css/themes/horizontal-menu-template/style.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/css/layouts/style-horizontal.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/hover-effects/media-hover-effects.css">
+</head>
+<!-- END: Head-->
+<style>
+    @media only screen and (min-width: 993px){
+        .container {
+            width: 70%;
+        }
+        [data-href] { cursor: pointer; }
+    }
+</style>
+<body class="horizontal-layout page-header-light horizontal-menu preload-transitions 2-columns" data-open="click" data-menu="horizontal-menu" data-col="2-columns">
+<!-- BEGIN: Header-->
+<header class="page-topbar" id="header">
+    <div class="navbar navbar-fixed">
+        <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-light-blue-cyan">
+            <div class="nav-wrapper">
+                <ul class="left">
+                    <li>
+                        <h1 class="logo-wrapper"></h1>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <nav class="white hide-on-med-and-down" id="horizontal-nav">
+            <div class="nav-wrapper">
+                <ul class="left hide-on-med-and-down" id="ul-horizontal-nav" data-menu="menu-navigation">
+                    <li><a  href="Employees.html" data-target="DashboardDropdown"><span><span class="dropdown-title" data-i18n="Dashboard">Employees</span></span></a></li>
+                    <li><a  href="Skills.html" data-target="DashboardDropdown"><span><span class="dropdown-title" data-i18n="Dashboard">Skills</span></span></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-fixed hide-on-large-only">
+    <div class="brand-sidebar sidenav-light"></div>
+    <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed hide-on-large-only menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
+        <li><a  href="Employees.html" data-target="DashboardDropdown"><span><span class="dropdown-title" data-i18n="Dashboard">Employees</span></span></a></li>
+        <li><a  href="Skills.html" data-target="DashboardDropdown"><span><span class="dropdown-title" data-i18n="Dashboard">Skills</span></span></a></li>
+    </ul>
+    <div class="navigation-background"></div><a class="sidenav-trigger btn-floating btn-medium waves-effect waves-light hide-on-large-only" href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
+</aside>
+<div id="main">
+    <div class="container">
+        <div class="row">
+            <div class="card mt-8 pb-0">
+                <div class="card-content">
+                    <p class="caption mb-0">View skills required for any job at this company:
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="card-title">
+                                <div class="row">
+                                    <div class="col s12 m6 l10">
+                                        <h4 class="card-title">Skills</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="subscription-table responsive-table highlight striped" id="skill_table">
+                                <thead>
+                                <tr>
+                                    <th class="center-align">Index</th>
+                                    <th class="center-align">Skill Name</th>
+                                    <th class="center-align">Skill Description</th>
+                                </tr>
+                                </thead>
+                                <tbody id="skill_tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 display-flex justify-content-end mt-3">
+                <button class="btn indigo" id="create_skill" >
+                    New Skill </button>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="page-footer footer footer-static footer-dark gradient-45deg-light-blue-cyan gradient-shadow navbar-border navbar-shadow">
+    <div class="footer-copyright">
+    </div>
+</footer>
+<script src="app-assets/js/vendors.min.js"></script>
+<script src="app-assets/js/plugins.js"></script>
+<script src="app-assets/js/search.js"></script>
+<script src="app-assets/js/custom/skills.js"></script>
+<script>
+    jQuery(document).ready(function($) {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("href");
+        });
+    });
+</script>
+</body>
+</html>
