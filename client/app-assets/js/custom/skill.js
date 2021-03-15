@@ -1,6 +1,8 @@
 $(document).ready(function(){
-	
+	// Get employee id
     var id = window.location.href.split('=')[1];
+
+    // Get all skills
     $.get('https://localhost:44337/api/Skills/'+id, function(data){
         if(data != '') {
 			$('#skill').append(
@@ -28,7 +30,7 @@ $(document).ready(function(){
 	},"json").fail(function(error){
 		alert(error.responseText);
 	});
-
+    // Update skill
     $("#update").on("click", function(){
         let data = {
             "id": id,
@@ -47,7 +49,7 @@ $(document).ready(function(){
         });
 
     });
-
+    // Delete skill
     $("#delete").on("click", function(){
         let data = {
             "id": id,

@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+        // Get all skills
         $.get('https://localhost:44337/api/Skills', function(data){
             if(data != '') {
                 for(var i=0; i<data.length; i++){
@@ -18,6 +20,10 @@ $(document).ready(function(){
 
         $("#create_skill").on('click', function(){
             window.location = '/CreateSkill.html';
+        });
+
+        $("#export_skills").on('click', function(){
+            window.location = 'https://localhost:44337/api/Skills/csv';
         });
     
         $('#skill_table').delegate('.clickable-row', 'click', function(){

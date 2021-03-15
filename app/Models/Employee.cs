@@ -17,12 +17,6 @@ namespace EmployeeManagementApp.Models
 
         [DataType(DataType.Date)]
         public DateTime HireDate { get; set; }
-        public virtual ICollection<Skill> Skills {get; set;}
 
-        // Constructor
-        public Employee()
-        {
-            Skills = new HashSet<Skill>();
-        }
     }
 }

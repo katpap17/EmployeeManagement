@@ -12,5 +12,7 @@ namespace EmployeeManagementApp.Models
         public DbSet<Employee> employee { get; set; }
         public DbSet<Skill> Skill { get; set; }
         public DbSet<EmployeeSkill> employeeSkill { get; set; }
+        public DbSet<Log> log { get; set; }
+
     }
 }

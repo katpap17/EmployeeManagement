@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <title>Skills required for any job</title>
+    <title>Logs of skill changes</title>
     <link rel="apple-touch-icon" href="app-assets/images/favicon/apple-touch-icon-152x152.png">
     <link rel="shortcut icon" type="image/x-icon" href="app-assets/images/favicon/favicon-32x32.png">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -64,7 +64,7 @@
         <div class="row">
             <div class="card mt-8 pb-0">
                 <div class="card-content">
-                    <p class="caption mb-0">View skills required for any job at this company:
+                    <p class="caption mb-0">View logs:
                     </p>
                 </div>
             </div>
@@ -75,32 +75,26 @@
                             <div class="card-title">
                                 <div class="row">
                                     <div class="col s12 m6 l10">
-                                        <h4 class="card-title">Skills</h4>
+                                        <h4 class="card-title">Logs</h4>
                                     </div>
                                 </div>
                             </div>
-                            <table class="subscription-table responsive-table highlight striped" id="skill_table">
+                            <table class="subscription-table responsive-table highlight striped" id="logs_table">
                                 <thead>
-                                <tr>
-                                    <th class="center-align">Index</th>
-                                    <th class="center-align">Skill Name</th>
-                                    <th class="center-align">Skill Description</th>
-                                </tr>
+                                    <tr>
+                                        <th>Index</th>
+                                        <th>Skill</th>
+                                        <th>Employee</th>
+                                        <th>Action</th>
+                                        <th>Date of Change</th>
+                                    </tr>
                                 </thead>
-                                <tbody id="skill_tbody">
+                                <tbody id="employee_tbody">
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col s2 ">
-                <button class="btn indigo" id="create_skill" >
-                    New Skill </button>
-            </div>
-            <div class="col s2 ">
-                <button class="btn indigo" id="export_skills" >
-                    Export Skills </button>
             </div>
         </div>
     </div>
@@ -112,7 +106,7 @@
 <script src="app-assets/js/vendors.min.js"></script>
 <script src="app-assets/js/plugins.js"></script>
 <script src="app-assets/js/search.js"></script>
-<script src="app-assets/js/custom/skills.js"></script>
+<script src="app-assets/js/custom/logs.js"></script>
 <script>
     jQuery(document).ready(function($) {
         $(".clickable-row").click(function() {
@@ -120,5 +114,6 @@
         });
     });
 </script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 </body>
 </html>

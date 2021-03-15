@@ -31,12 +31,13 @@ $(document).ready(function(){
 	});
 
     // Get employee skills
-    $.get('https://localhost:44337/api/Employees/'+id+'/getskills', function(data){
+    $.get('https://localhost:44337/api/Employees/'+id+'/Skills', function(data){
         if(data != '') {
             for(var i=0; i<data.length; i++){
                 $('#skillset').append(
                     '<tr>'+'\n'+
                     '	<td class="users-view-username">'+data[i].name+'</td>'+'\n'+
+                    '	<td class="users-view-username"><button type="submit" class="btn red del_skill" data-href="'+data[i].id+'">Delete Skill</button></td>'+'\n'+
                     '</tr>'
                 );
             }
@@ -61,7 +62,7 @@ $(document).ready(function(){
         },"json").fail(function(error){
             alert(error.responseText);
         });	
-
+    // Update employee
     $("#update").on("click", function(){
         let data = {
             "id": id,
@@ -80,7 +81,7 @@ $(document).ready(function(){
         });
 
     });
-
+    // Delete employee
     $("#delete").on("click", function(){
         let data = {
             "id": id,
@@ -98,15 +99,34 @@ $(document).ready(function(){
 
     });
 
+    // Add new skill to employee
     $("#btn_add_skill").on("click", function(){
         let data = {
             "id": $("#skills").val()
          };
         $.ajax({
             type: 'POST',
-            url: 'https://localhost:44337/api/Employees/'+id+'/addskills',
+            url: 'https://localhost:44337/api/Employees/'+id+'/Skills',
             contentType: 'application/json',
             data: JSON.stringify(data),
+        }).done(function () {
+            window.location = '/Employee.html?id='+id;
+        }).fail(function (msg) {
+            alert('Something went wrong.');
+        });
+
+    });
+
+    // Delete employee skill
+    $("#skillset").on("click", ".del_skill", function(){
+        let data = {
+            "id": $(this).data("href")
+         };
+        $.ajax({
+            type: 'DELETE',
+            url: 'https://localhost:44337/api/Employees/'+id+'/Skills',
+            contentType: 'application/json',
+            data: JSON.stringify(data), 
         }).done(function () {
             window.location = '/Employee.html?id='+id;
         }).fail(function (msg) {

@@ -73,53 +73,7 @@ namespace EmployeeManagementApp.Controllers
 
             return NoContent();
         }
-        // POST: api/Employees/5/addskills
-        [HttpPost("{id}/addskills")]
-        public async Task<IActionResult> PostEmployeeSkills(long id, Skill skill)
-        {
-            
-                EmployeeSkill empskill = new EmployeeSkill();
-                empskill.employeeid = id;
-                empskill.skillid = skill.Id;
-                empskill.LastChange = DateTime.Now;
-                _context.employeeSkill.Add(empskill);
-                try
-                {
-                    await _context.SaveChangesAsync();
-                    return CreatedAtAction("PostEmployeeSkills", new { id = empskill.id }, empskill);
-            }
-                catch (DbUpdateConcurrencyException)
-                {
-                        throw;
-                }
-            return NoContent();
 
-        }
-
-        // Get: api/Employees/5/getskills
-        [HttpGet("{id}/getskills")]
-        public async Task<ActionResult<IEnumerable<Skill>>> GetEmployeeSkills(long id)
-        {
-
-            var employeeskill = await _context.employeeSkill
-                .Where(empsk => empsk.employeeid == id) // find skills by employee id
-                .ToListAsync();
-
-            List<Skill> skillList = new List<Skill>();
-            foreach(EmployeeSkill empskill in employeeskill)
-            {
-                var skill = await _context.Skill.FindAsync(empskill.skillid);
-                skillList.Add(skill);
-            }
-            // if employee does not exist
-            if (skillList == null)
-            {
-                return NotFound();
-            }
-
-            return skillList;
-
-        }
 
         // POST: api/Employees
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -154,6 +108,92 @@ namespace EmployeeManagementApp.Controllers
         private bool EmployeeExists(long id)
         {
             return _context.employee.Any(e => e.Id == id);
+        }
+
+        // POST: api/Employees/5/addskills
+        [HttpPost("{id}/Skills")]
+        public async Task<IActionResult> PostEmployeeSkills(long id, Skill skill)
+        {
+            // Create employee-skill association
+            EmployeeSkill empskill = new EmployeeSkill();
+            empskill.employeeid = id;
+            empskill.skillid = skill.Id;
+            empskill.LastChange = DateTime.Now;
+            _context.employeeSkill.Add(empskill);
+
+            // Create log
+            Log log = new Log();
+            log.employeeid = id;
+            log.skillid = skill.Id;
+            log.LogDate = DateTime.Now;
+            log.action = "add";
+            _context.log.Add(log);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return CreatedAtAction("PostEmployeeSkills", new { id = empskill.id }, empskill);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+            return NoContent();
+
+        }
+
+        // Get: api/Employees/5/getskills
+        [HttpGet("{id}/Skills")]
+        public async Task<ActionResult<IEnumerable<Skill>>> GetEmployeeSkills(long id)
+        {
+
+            var employeeskill = await _context.employeeSkill
+                .Where(empsk => empsk.employeeid == id) // find skills by employee id
+                .ToListAsync();
+
+            List<Skill> skillList = new List<Skill>();
+            foreach (EmployeeSkill empskill in employeeskill)
+            {
+                var skill = await _context.Skill.FindAsync(empskill.skillid);
+                skillList.Add(skill);
+            }
+            // if employee does not exist
+            if (skillList == null)
+            {
+                return NotFound();
+            }
+
+            return skillList;
+
+        }
+        // Delete: api/Employees/5/deleteskills
+        [HttpDelete("{id}/Skills")]
+        public async Task<IActionResult> DeleteEmployeeSkills(long id, Skill skill)
+        {
+            // Find employee by id
+            var employeeskill = await _context.employeeSkill
+                .Where(empsk => empsk.employeeid == id && empsk.skillid == skill.Id)
+                .FirstOrDefaultAsync();
+
+            if (employeeskill == null)
+            {
+                return NotFound();
+            }
+
+            // Remove employee
+            _context.employeeSkill.Remove(employeeskill);
+
+            // Create log
+            Log log = new Log();
+            log.employeeid = id;
+            log.skillid = skill.Id;
+            log.LogDate = DateTime.Now;
+            log.action = "remove";
+            _context.log.Add(log);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

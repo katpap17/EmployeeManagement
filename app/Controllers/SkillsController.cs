@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EmployeeManagementApp.Models;
+using System.IO;
+using CsvHelper;
+using CsvHelper.Configuration;
 
 namespace EmployeeManagementApp.Controllers
 {
@@ -100,6 +103,22 @@ namespace EmployeeManagementApp.Controllers
 
             return NoContent();
         }
+
+        // GET: api/Skills/csv
+        [HttpGet("csv")]
+        public async Task<ActionResult> GetSkillCSV()
+        {
+            var skills = await _context.Skill.ToListAsync();
+            var cc = new CsvConfiguration(new System.Globalization.CultureInfo("en-US"));
+            var stream = new MemoryStream();
+            using (var writeFile = new StreamWriter(stream, leaveOpen: true))
+            {
+                var csv = new CsvWriter(writeFile, cc);
+                csv.WriteRecords(skills);
+            }
+            return File(stream.ToArray(), "text/csv", $"export_{DateTime.UtcNow.Ticks}.csv");
+        }
+
 
         private bool SkillExists(long id)
         {
