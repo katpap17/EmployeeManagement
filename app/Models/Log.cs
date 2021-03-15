@@ -12,7 +12,7 @@ namespace EmployeeManagementApp.Models
 
         public string action { get; set; }
 
-        public long employeeid { get; set; }
-        public long skillid { get; set; }
+        public Employee employee { get; set; }
+        public Skill skill { get; set; }
     }
 }

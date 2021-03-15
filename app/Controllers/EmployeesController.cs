@@ -114,6 +114,16 @@ namespace EmployeeManagementApp.Controllers
         [HttpPost("{id}/Skills")]
         public async Task<IActionResult> PostEmployeeSkills(long id, Skill skill)
         {
+            // Check if association has already been made
+            var employeeskill = await _context.employeeSkill
+                .Where(empsk => empsk.employeeid == id && empsk.skillid == skill.Id)
+                .FirstOrDefaultAsync();
+            // If association exists return bad request
+            if (employeeskill != null)
+            {
+                return BadRequest();
+            }
+
             // Create employee-skill association
             EmployeeSkill empskill = new EmployeeSkill();
             empskill.employeeid = id;
@@ -123,8 +133,8 @@ namespace EmployeeManagementApp.Controllers
 
             // Create log
             Log log = new Log();
-            log.employeeid = id;
-            log.skillid = skill.Id;
+            log.skill = await _context.Skill.FindAsync(skill.Id);
+            log.employee = await _context.employee.FindAsync(id);
             log.LogDate = DateTime.Now;
             log.action = "add";
             _context.log.Add(log);
@@ -185,8 +195,8 @@ namespace EmployeeManagementApp.Controllers
 
             // Create log
             Log log = new Log();
-            log.employeeid = id;
-            log.skillid = skill.Id;
+            log.skill = await _context.Skill.FindAsync(skill.Id);
+            log.employee = await _context.employee.FindAsync(id);
             log.LogDate = DateTime.Now;
             log.action = "remove";
             _context.log.Add(log);

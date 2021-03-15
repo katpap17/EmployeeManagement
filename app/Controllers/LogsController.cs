@@ -25,6 +25,8 @@ namespace EmployeeManagementApp.Controllers
         public async Task<ActionResult<IEnumerable<Log>>> Getlog()
         {
             return await _context.log
+                .Include(log => log.employee)
+                .Include(log => log.skill)
                 .ToListAsync();
 
         }

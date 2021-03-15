@@ -8,8 +8,10 @@ $(document).ready(function(){
             for(var i=0; i<data.length; i++){
                 table.row.add([
                     data[i].id,
-                    data[i].skillid,
-                    data[i].employeeid,
+                    data[i].skill.name,
+                    data[i].employee.name,
+                    data[i].employee.lastname,
+                    data[i].employee.hireDate,
                     data[i].action,
                     data[i].logDate
                 ]).draw();
@@ -18,6 +20,5 @@ $(document).ready(function(){
     },"json").fail(function(error){
         alert(error.responseText);
     });	
-
 
 });
